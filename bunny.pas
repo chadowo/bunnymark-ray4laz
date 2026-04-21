@@ -2,7 +2,7 @@
 unit Bunny;
 
 interface
-uses Raylib;
+uses SysUtils, Raylib;
 
 type
   { A Bunny has a position, speed and a reference to its texture. It doesn't dynamically allocate
@@ -21,16 +21,21 @@ type
   public
     constructor Create(X, Y, SpeedX, SpeedY: integer);
     destructor Destroy; override;
-    
+
     procedure Tick;
     procedure Render;
 
     class procedure TickBunnies(ABunnies: array of TBunnyClass);
     class procedure RenderBunnies(ABunnies: array of TBunnyClass);
 
+    { Here we'll create all textures for all the variants of Bunny, this way we don't have to create a new texture
+      per Bunny class instance. Call this ONLY AFTER raylib's InitWindow(). }
     class procedure LoadTextures;
+
     class procedure UnloadTextures;
   end;
+
+  EBunnyTexturesNotLoaded = class(Exception);
 
 implementation
 
@@ -100,9 +105,9 @@ begin
     Bunny.Render;
 end;
 
-{ Here we'll create all textures for all the variants of Bunny, this way we don't have to create a new texture
-  per Bunny class instance. }
 class procedure TBunnyClass.LoadTextures;
+var
+  Texture: TTexture2D;
 begin
   // TODO: possibly load all files in sprites dir instead of hardcoding like this
   cBunnyTextureVariants[0]  := LoadTexture('sprites/rabbitv3.png');
@@ -117,6 +122,9 @@ begin
   cBunnyTextureVariants[9]  := LoadTexture('sprites/rabbitv3_superman.png');
   cBunnyTextureVariants[10] := LoadTexture('sprites/rabbitv3_tron.png');
   cBunnyTextureVariants[11] := LoadTexture('sprites/rabbitv3_wolverine.png');
+
+  for Texture in cBunnyTextureVariants do
+    if Texture.ID <= 0 then raise EBunnyTexturesNotLoaded.Create('Textures could not be fully loaded');
 end;
 
 class procedure TBunnyClass.UnloadTextures;
