@@ -50,9 +50,7 @@ begin
 end;
 
 destructor TBunnyClass.Destroy;
-begin
-  WriteLn('The bunny says goodbye!');
-end;
+begin end;
 
 procedure TBunnyClass.Tick;
 begin
