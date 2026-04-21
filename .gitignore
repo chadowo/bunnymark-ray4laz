@@ -1,0 +1,8 @@
+backup/
+lib/
+
+# Lazarus sessions
+*.lps
+
+# Generated executable debug information
+*.dbg
