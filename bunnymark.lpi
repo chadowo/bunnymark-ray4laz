@@ -52,6 +52,10 @@
         <ShowUsedFiles Value="True"/>
       </Verbosity>
       <WriteFPCLogo Value="False"/>
+      <ExecuteAfter>
+        <Command Value="cp -r sprites/ build/"/>
+        <CompileReasons Run="False"/>
+      </ExecuteAfter>
     </Other>
   </CompilerOptions>
   <Debugging>
