@@ -122,7 +122,8 @@ begin
   cBunnyTextureVariants[11] := LoadTexture('sprites/rabbitv3_wolverine.png');
 
   for Texture in cBunnyTextureVariants do
-    if Texture.ID <= 0 then raise EBunnyTexturesNotLoaded.Create('Textures could not be fully loaded');
+    if Texture.ID <= 0 then 
+      raise EBunnyTexturesNotLoaded.Create('Texture could not be loaded. Returned ID: ' + Texture.ID.ToString);
 end;
 
 class procedure TBunnyClass.UnloadTextures;
