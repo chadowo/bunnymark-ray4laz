@@ -34,13 +34,13 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="bunnymark"/>
+      <Filename Value="build/bunnymark"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <Libraries Value="external/ray4laz/libs/x86_64-linux"/>
       <OtherUnitFiles Value="external/ray4laz/source;external/ray4laz/headers"/>
-      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="build/lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
       <Debugging>

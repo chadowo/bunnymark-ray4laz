@@ -1,5 +1,5 @@
+build/
 backup/
-lib/
 
 # Lazarus sessions
 *.lps
