@@ -8,7 +8,7 @@
         <MainUnitHasTitleStatement Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
       </Flags>
-      <SessionStorage Value="InProjectDir"/>
+      <SessionStorage Value="None"/>
       <Title Value="bunnymark"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
