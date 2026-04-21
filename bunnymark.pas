@@ -6,7 +6,7 @@ uses
   Bunny;
 
 { Random range.
-  Returns a random number using RTL's Random between Min and Max. }
+  Returns a random number using RTL's Random between params Min and Max. }
 function RanRan(Min, Max: integer): integer;
 begin
   Result := Random(Max - Min) + Min;
