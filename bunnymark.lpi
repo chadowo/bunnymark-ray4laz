@@ -29,6 +29,10 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="BunnyMark"/>
       </Unit>
+      <Unit>
+        <Filename Value="bunny.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
