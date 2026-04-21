@@ -12,14 +12,14 @@ type
     functions you can create your bunnies (yay!) }
   TBunnyClass = class
   private
-    FX, FY: integer;
-    FSpeedX, FSpeedY: integer;
+    FX, FY: Integer;
+    FSpeedX, FSpeedY: Integer;
     FTex: TTexture2D;
 
     // Static field (pertaining to class, and all instances)
     cBunnyTextureVariants: array[0..11] of TTexture2D; static;
   public
-    constructor Create(X, Y, SpeedX, SpeedY: integer);
+    constructor Create(X, Y, SpeedX, SpeedY: Integer);
     destructor Destroy; override;
 
     procedure Tick;
@@ -39,7 +39,7 @@ type
 
 implementation
 
-constructor TBunnyClass.Create(X, Y, SpeedX, SpeedY: integer);
+constructor TBunnyClass.Create(X, Y, SpeedX, SpeedY: Integer);
 begin
   FX := X;
   FY := Y;
@@ -129,7 +129,7 @@ end;
 
 class procedure TBunnyClass.UnloadTextures;
 var
-  i: integer;
+  i: Integer;
 begin
   for i := Low(cBunnyTextureVariants) to High(cBunnyTextureVariants) do
     UnloadTexture(cBunnyTextureVariants[i])
