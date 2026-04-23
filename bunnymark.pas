@@ -73,11 +73,11 @@ begin
     else
       FPSTextColor := GREEN;
 
-    TickBunnies(Bunnies);
+    TBunnyClass.TickBunnies(Bunnies);
 
     BeginDrawing;
     ClearBackground(RAYWHITE);
-    DrawBunnies(Bunnies);
+    TBunnyClass.RenderBunnies(Bunnies);
 
     DrawText(PChar('FPS: ' + GetFPS.ToString), 10, 10, 20, FPSTextColor);
     DrawText(PChar('Bunnies: ' + Length(Bunnies).ToString), 130, 10, 20, BLACK);
