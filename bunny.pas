@@ -16,8 +16,7 @@ type
     FSpeedX, FSpeedY: Integer;
     FTexture: TTexture2D;
 
-    // Accesible to all instances
-    class var SpriteVariants: array[0..11] of TTexture2D;
+    class var SpriteVariants: array[0..11] of TTexture2D; // Accesible to all instances
   public
     constructor Create(X, Y, SpeedX, SpeedY: Integer);
     destructor Destroy; override;
@@ -25,19 +24,22 @@ type
     procedure Tick;
     procedure Render;
 
+    { These routines are used to create (and destroy) all textures for all the variant, this way we
+      don't have to create a new texture per Bunny class instance.
+      Call this ONLY AFTER raylib's InitWindow().}
+    class procedure LoadTextures;
+    class procedure UnloadTextures;
+
+    { Helpers. }
     class procedure TickBunnies(ABunnies: array of TBunnyClass);
     class procedure RenderBunnies(ABunnies: array of TBunnyClass);
-
-    { Here we'll create all textures for all the variants of Bunny, this way we don't have to create a new texture
-      per Bunny class instance. Call this ONLY AFTER raylib's InitWindow(). }
-    class procedure LoadTextures;
-
-    class procedure UnloadTextures;
   end;
 
   EBunnyTexturesNotLoaded = class(Exception);
 
 implementation
+
+{ TBunnyClass }
 
 constructor TBunnyClass.Create(X, Y, SpeedX, SpeedY: Integer);
 begin
@@ -87,22 +89,6 @@ begin
   DrawTexture(FTexture, FX, FY, RAYWHITE);
 end;
 
-class procedure TBunnyClass.TickBunnies(ABunnies: array of TBunnyClass);
-var
-  Bunny: TBunnyClass;
-begin
-  for Bunny in ABunnies do
-    Bunny.Tick;
-end;
-
-class procedure TBunnyClass.RenderBunnies(ABunnies: array of TBunnyClass);
-var
-  Bunny: TBunnyClass;
-begin
-  for Bunny in ABunnies do
-    Bunny.Render;
-end;
-
 class procedure TBunnyClass.LoadTextures;
 var
   Texture: TTexture2D;
@@ -123,15 +109,30 @@ begin
 
   for Texture in SpriteVariants do
     if Texture.ID <= 0 then
-      raise EBunnyTexturesNotLoaded.Create('Texture could not be loaded. Returned ID: ' + Texture.ID.ToString);
+      raise EBunnyTexturesNotLoaded.Create('Texture could not be loaded. Returned ID: ' +
+                                            Texture.ID.ToString);
 end;
 
 class procedure TBunnyClass.UnloadTextures;
 var
   i: Integer;
 begin
-  for i := Low(SpriteVariants) to High(SpriteVariants) do
-    UnloadTexture(SpriteVariants[i])
+  for i := 0 to High(SpriteVariants) do
+    UnloadTexture(SpriteVariants[i]);
+end;
+
+class procedure TBunnyClass.TickBunnies(ABunnies: array of TBunnyClass);
+var
+  Bunny: TBunnyClass;
+begin
+  for Bunny in ABunnies do Bunny.Tick;
+end;
+
+class procedure TBunnyClass.RenderBunnies(ABunnies: array of TBunnyClass);
+var
+  Bunny: TBunnyClass;
+begin
+  for Bunny in ABunnies do Bunny.Render;
 end;
 
 end.
