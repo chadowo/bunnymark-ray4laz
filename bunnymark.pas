@@ -52,7 +52,11 @@ begin
       end;
 
     if IsKeyPressed(KEY_ZERO) then
+    begin
+      // TODO: Free all and then clear array or traverse and then free and clear?
+      for i := 0 to High(Bunnies) do FreeAndNil(Bunnies[i]);
       Delete(Bunnies, 0, Length(Bunnies));
+    end;
 
     if GetFPS < 20 then
       FPSTextColor := RED
