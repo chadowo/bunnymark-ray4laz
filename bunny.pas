@@ -14,7 +14,7 @@ type
   private
     FX, FY: Integer;
     FSpeedX, FSpeedY: Integer;
-    FTex: TTexture2D;
+    FTexture: TTexture2D;
 
     // Accesible to all instances
     class var SpriteVariants: array[0..11] of TTexture2D;
@@ -46,7 +46,7 @@ begin
   FSpeedX := SpeedX;
   FSpeedY := SpeedY;
 
-  FTex := SpriteVariants[Random(High(SpriteVariants))];
+  FTexture := SpriteVariants[Random(High(SpriteVariants))];
 end;
 
 destructor TBunnyClass.Destroy;
@@ -58,10 +58,10 @@ begin
   FY += FSpeedY;
 
   // Horizontal collision
-  if FX + FTex.Width >= 800 then
+  if FX + FTexture.Width >= 800 then
   begin
     FSpeedX *= -1;
-    FX := 800 - FTex.Width;
+    FX := 800 - FTexture.Width;
   end
   else if FX <= 0 then
   begin
@@ -70,10 +70,10 @@ begin
   end;
 
   // Vertical collision
-  if FY + FTex.Height >= 570 then
+  if FY + FTexture.Height >= 570 then
   begin
     FSpeedY *= -1;
-    FY := 570 - FTex.Height;
+    FY := 570 - FTexture.Height;
   end
   else if FY <= 30 then
   begin
@@ -84,7 +84,7 @@ end;
 
 procedure TBunnyClass.Render;
 begin
-  DrawTexture(FTex, FX, FY, RAYWHITE);
+  DrawTexture(FTexture, FX, FY, RAYWHITE);
 end;
 
 class procedure TBunnyClass.TickBunnies(ABunnies: array of TBunnyClass);
