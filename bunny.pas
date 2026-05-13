@@ -7,7 +7,7 @@ uses SysUtils, Raylib;
 type
   { A Bunny has a position, speed and a reference to its texture. It doesn't dynamically allocate
     any memory, that is done within the class with LoadTextures and UnloadTextures, the textures
-    are in the cBunnyTextureVariants static field. Thus you must call LoadTextures after you call
+    are in the SpriteVariants static field. Thus you must call LoadTextures after you call
     Raylib's InitWindow and UnloadTextures before you destroy the window. Between the call of these
     functions you can create your bunnies (yay!) }
   TBunnyClass = class
@@ -16,8 +16,8 @@ type
     FSpeedX, FSpeedY: Integer;
     FTex: TTexture2D;
 
-    // Static field (pertaining to class, and all instances)
-    cBunnyTextureVariants: array[0..11] of TTexture2D; static;
+    // Accesible to all instances
+    class var SpriteVariants: array[0..11] of TTexture2D;
   public
     constructor Create(X, Y, SpeedX, SpeedY: Integer);
     destructor Destroy; override;
@@ -46,7 +46,7 @@ begin
   FSpeedX := SpeedX;
   FSpeedY := SpeedY;
 
-  FTex := cBunnyTextureVariants[Random(High(cBunnyTextureVariants))];
+  FTex := SpriteVariants[Random(High(SpriteVariants))];
 end;
 
 destructor TBunnyClass.Destroy;
@@ -108,21 +108,21 @@ var
   Texture: TTexture2D;
 begin
   // TODO: possibly load all files in sprites dir instead of hardcoding like this
-  cBunnyTextureVariants[0]  := LoadTexture('sprites/rabbitv3.png');
-  cBunnyTextureVariants[1]  := LoadTexture('sprites/rabbitv3_ash.png');
-  cBunnyTextureVariants[2]  := LoadTexture('sprites/rabbitv3_batman.png');
-  cBunnyTextureVariants[3]  := LoadTexture('sprites/rabbitv3_bb8.png');
-  cBunnyTextureVariants[4]  := LoadTexture('sprites/rabbitv3_frankenstein.png');
-  cBunnyTextureVariants[5]  := LoadTexture('sprites/rabbitv3_neo.png');
-  cBunnyTextureVariants[6]  := LoadTexture('sprites/rabbitv3_sonic.png');
-  cBunnyTextureVariants[7]  := LoadTexture('sprites/rabbitv3_spidey.png');
-  cBunnyTextureVariants[8]  := LoadTexture('sprites/rabbitv3_stormtrooper.png');
-  cBunnyTextureVariants[9]  := LoadTexture('sprites/rabbitv3_superman.png');
-  cBunnyTextureVariants[10] := LoadTexture('sprites/rabbitv3_tron.png');
-  cBunnyTextureVariants[11] := LoadTexture('sprites/rabbitv3_wolverine.png');
+  SpriteVariants[0]  := LoadTexture('sprites/rabbitv3.png');
+  SpriteVariants[1]  := LoadTexture('sprites/rabbitv3_ash.png');
+  SpriteVariants[2]  := LoadTexture('sprites/rabbitv3_batman.png');
+  SpriteVariants[3]  := LoadTexture('sprites/rabbitv3_bb8.png');
+  SpriteVariants[4]  := LoadTexture('sprites/rabbitv3_frankenstein.png');
+  SpriteVariants[5]  := LoadTexture('sprites/rabbitv3_neo.png');
+  SpriteVariants[6]  := LoadTexture('sprites/rabbitv3_sonic.png');
+  SpriteVariants[7]  := LoadTexture('sprites/rabbitv3_spidey.png');
+  SpriteVariants[8]  := LoadTexture('sprites/rabbitv3_stormtrooper.png');
+  SpriteVariants[9]  := LoadTexture('sprites/rabbitv3_superman.png');
+  SpriteVariants[10] := LoadTexture('sprites/rabbitv3_tron.png');
+  SpriteVariants[11] := LoadTexture('sprites/rabbitv3_wolverine.png');
 
-  for Texture in cBunnyTextureVariants do
-    if Texture.ID <= 0 then 
+  for Texture in SpriteVariants do
+    if Texture.ID <= 0 then
       raise EBunnyTexturesNotLoaded.Create('Texture could not be loaded. Returned ID: ' + Texture.ID.ToString);
 end;
 
@@ -130,8 +130,8 @@ class procedure TBunnyClass.UnloadTextures;
 var
   i: Integer;
 begin
-  for i := Low(cBunnyTextureVariants) to High(cBunnyTextureVariants) do
-    UnloadTexture(cBunnyTextureVariants[i])
+  for i := Low(SpriteVariants) to High(SpriteVariants) do
+    UnloadTexture(SpriteVariants[i])
 end;
 
 end.
