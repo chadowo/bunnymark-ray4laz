@@ -57,7 +57,7 @@
       </Verbosity>
       <WriteFPCLogo Value="False"/>
       <ExecuteAfter>
-        <Command Value="cp -r sprites/ build/"/>
+        <Command Value="cp -r -u sprites/ build/"/>
         <CompileReasons Run="False"/>
       </ExecuteAfter>
     </Other>
