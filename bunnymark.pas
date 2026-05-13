@@ -36,10 +36,14 @@ var
   MouseWheelMovement: TVector2;
   FPSTextColor: TColor;
 
+  WindowIcon: TImage;
   i: Integer;
 begin
   InitWindow(cScreenWidth, cScreenHeight, 'BunnyMark');
   SetTargetFPS(60);
+
+  WindowIcon := LoadImage('sprites/rabbitv3.png');
+  SetWindowIcon(WindowIcon);
 
   Randomize;
 
@@ -86,6 +90,7 @@ begin
     EndDrawing;
   end;
 
+  UnloadImage(WindowIcon);
   TBunnyClass.UnloadTextures;
   CloseWindow;
 end.
