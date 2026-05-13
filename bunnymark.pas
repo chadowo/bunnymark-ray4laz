@@ -12,22 +12,6 @@ begin
   Result := Random(Max - Min) + Min;
 end;
 
-procedure TickBunnies(ABunnies: array of TBunnyClass);
-var
-  Bunny: TBunnyClass;
-begin 
-  for Bunny in ABunnies do 
-    Bunny.Tick
-end;
-
-procedure DrawBunnies(ABunnies: array of TBunnyClass);
-var
-  Bunny: TBunnyClass;
-begin
-  for Bunny in ABunnies do 
-    Bunny.Render;
-end;
-
 const
   cScreenWidth  = 800;
   cScreenHeight = 600;
